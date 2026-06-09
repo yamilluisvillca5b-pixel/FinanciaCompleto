@@ -11,7 +11,7 @@ function Gastos() {
   const [fecha, setFecha] = useState('');
   const [categoriaId, setCategoriaId] = useState('');
 
-  const API = 'http://localhost:3001';
+  const API = 'https://financiacompleto-3.onrender.com';
 
   
   const usuarioId = localStorage.getItem('usuarioId');

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function CategoriaIngreso() {
-  const API = 'http://localhost:3001/categoria-ingreso';
+  const API = 'https://financiacompleto-3.onrender.com/categoria-ingreso';
 
   const [categorias, setCategorias] = useState<any[]>([]);
   const [nombre, setNombre] = useState('');

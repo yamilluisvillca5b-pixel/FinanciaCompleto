@@ -21,7 +21,7 @@ ChartJS.register(
 
 function Reportes() {
 
-  const API = 'http://localhost:3001';
+  const API = 'https://financiacompleto-3.onrender.com';
 
   const usuarioId =
     localStorage.getItem('usuarioId');

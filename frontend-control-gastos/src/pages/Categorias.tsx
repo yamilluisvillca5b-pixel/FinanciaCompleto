@@ -8,7 +8,7 @@ function Categorias() {
   const [editando, setEditando] = useState(false);
   const [idCategoria, setIdCategoria] = useState<number | null>(null);
 
-  const API = 'http://localhost:3001/categoria';
+  const API = 'https://financiacompleto-3.onrender.com/categoria';
 
   // =========================
   // USUARIO LOGUEADO
