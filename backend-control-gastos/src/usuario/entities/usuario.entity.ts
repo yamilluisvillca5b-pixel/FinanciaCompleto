@@ -8,11 +8,18 @@ export class Usuario {
 
   @Column()
   nombre: string;
-@Column({ nullable: true })
-correo: string;
 
-@Column({ nullable: true })
-password_hash: string;
+  @Column({ nullable: true })
+  correo: string;
+
+  @Column({ nullable: true })
+  password_hash: string;
+
   @Column()
   tipo_usuario: string;
+
+  @Column({
+    default: true,
+  })
+  activo: boolean;
 }

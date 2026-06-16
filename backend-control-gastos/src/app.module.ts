@@ -12,14 +12,16 @@ import { AhorroModule } from './ahorro/ahorro.module';
 import { ReporteModule } from './reporte/reporte.module';
 import { CategoriaIngresoModule } from './categoria-ingreso/categoria-ingreso.module';
 import { ChatModule } from './chat/chat.module';
+import { LogAccesoModule } from './log-acceso/log-acceso.module';
 
 @Module({
+  
   imports: [
 
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-
+    
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -27,9 +29,15 @@ import { ChatModule } from './chat/chat.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
+
+      ssl:{
+        rejectUnauthorized:false,
+      },
       autoLoadEntities: true,
       synchronize: true,
+      
     }),
+    
 
     UsuarioModule,
     AuthModule,
@@ -41,6 +49,11 @@ import { ChatModule } from './chat/chat.module';
     ReporteModule,
     CategoriaIngresoModule,
     ChatModule,
+    LogAccesoModule,
   ],
+  
 })
-export class AppModule {}
+
+export class AppModule {}console.log('HOST:', process.env.DB_HOST);
+console.log('PORT:', process.env.DB_PORT);
+console.log('DATABASE:', process.env.DB_DATABASE);

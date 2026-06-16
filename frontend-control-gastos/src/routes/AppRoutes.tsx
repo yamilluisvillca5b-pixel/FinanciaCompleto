@@ -12,6 +12,7 @@ import Register from '../pages/Register';
 import DetalleReporte from '../pages/DetalleReporte';
 import ChatIA from '../pages/ChatIA';
 import CategoriaIngreso from '../pages/CategoriaIngreso';
+import AdminUsuarios from '../pages/AdminUsuarios';
 
 
 function AppRoutes() {
@@ -43,6 +44,7 @@ function AppRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/reporte/:id" element={<DetalleReporte />} />
         <Route path="/categoria-ingreso"element={<CategoriaIngreso />}/>
+        <Route path="/admin/usuarios"element={<AdminUsuarios />}/>
       </Routes>
     </BrowserRouter>
   );

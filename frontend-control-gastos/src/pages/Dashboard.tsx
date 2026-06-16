@@ -5,6 +5,9 @@ import api from '../services/api';
 function Dashboard() {
   const navigate = useNavigate();
 
+  // Obtener el tipo de usuario del almacenamiento local
+  const tipoUsuario = localStorage.getItem('tipoUsuario');
+
   // Estados
   const [balance, setBalance] = useState(0);
   const [gastos, setGastos] = useState(0);
@@ -19,7 +22,7 @@ function Dashboard() {
     cargarDatos();
   }, []);
 
-  // adtos de usuario
+  // Carga de datos del usuario
   const cargarDatos = async () => {
     try {
       const usuarioId = localStorage.getItem('usuarioId');
@@ -79,21 +82,20 @@ function Dashboard() {
           }
         });
 
-      // ultimos movimimentos
+      // Últimos movimientos
       listaMovimientos.sort(
         (a: any, b: any) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime()
       );
       setMovimientos(listaMovimientos.slice(0, 5));
 
-      // calculos 
+      // Cálculos 
       setBalance(totalIngresos - totalGastos);
       setGastos(totalGastos);
       setAhorros(totalAhorro);
       setDeudas(prestamos - pagosDeuda);
 
-      // barra de ahorro
+      // Barra de ahorro
       if (ahorroRes.data.length > 0) {
-        
         const ahorroUsuario = ahorroRes.data.find((a: any) => a.usuario?.id == usuarioId);
         if (ahorroUsuario) {
           const porc = (Number(ahorroUsuario.monto_actual) * 100) / Number(ahorroUsuario.meta_dinero);
@@ -105,7 +107,7 @@ function Dashboard() {
     }
   };
 
-  // lista de rangos 
+  // Lista de rangos 
   const alternarSeccionReporte = async () => {
     if (!mostrarListaReportes) {
       try {
@@ -122,7 +124,7 @@ function Dashboard() {
     setMostrarListaReportes(!mostrarListaReportes);
   };
 
-  // reporte
+  // Reporte
   const ejecutarGenerarReporte = async (rangoId: number) => {
     try {
       const usuarioId = localStorage.getItem('usuarioId');
@@ -145,6 +147,11 @@ function Dashboard() {
       
       <aside className="sidebar">
         <h2>FinanzIA</h2>
+        {/* Mostrar el rol del usuario */}
+        <p style={{ color: '#aaa', fontSize: '14px' }}>
+          Rol: {tipoUsuario}
+        </p>
+
         <button onClick={() => navigate('/dashboard')}>Dashboard</button>
         <button onClick={() => navigate('/ingresos')}>Ingresos</button>
         <button onClick={() => navigate('/gastos')}>Gastos</button>
@@ -154,6 +161,14 @@ function Dashboard() {
         <button onClick={() => navigate('/RangoControl')}>Rangos</button>
         <button onClick={() => navigate('/reportes')}>Reportes</button>
         <button onClick={() => navigate('/chat')}>FinanzIA</button>
+
+        {/* Botón exclusivo para Administradores */}
+        {tipoUsuario === 'admin' && (
+          <button onClick={() => navigate('/admin/usuarios')}>
+            Administrar Usuarios
+          </button>
+        )}
+
         <button
           className="logout-btn"
           onClick={() => {
@@ -206,35 +221,19 @@ function Dashboard() {
 
         {/* Acciones Rápidas de Navegación */}
         <div className="acciones-rapidas">
-          <button onClick={() => navigate('/ingresos')}>
-             Agregar Ingreso
-          </button>
-
-          <button onClick={() => navigate('/gastos')}>
-             Agregar Gasto
-          </button>
-
-          <button onClick={() => navigate('/ahorros')}>
-             Nuevo Ahorro
-          </button>
-
-          <button onClick={() => navigate('/RangoControl')}>
-            Crear Rango
-          </button>
-
-          {/* Botón interactivo que despliega los rangos de control de fechas */}
+          <button onClick={() => navigate('/ingresos')}>Agregar Ingreso</button>
+          <button onClick={() => navigate('/gastos')}>Agregar Gasto</button>
+          <button onClick={() => navigate('/ahorros')}>Nuevo Ahorro</button>
+          <button onClick={() => navigate('/RangoControl')}>Crear Rango</button>
           <button onClick={alternarSeccionReporte}>
             {mostrarListaReportes ? 'Ocultar Rangos' : 'Generar Reporte'}
           </button>
-
-          <button onClick={() => navigate('/categorias')}>
-             Categorías gastos 
-          </button>
-          <button onClick={() => navigate('/categoria-ingreso' )}>Categoría Ingreso</button>
+          <button onClick={() => navigate('/categorias')}>Categorías gastos</button>
+          <button onClick={() => navigate('/categoria-ingreso')}>Categoría Ingreso</button>
           <button onClick={() => navigate('/chat')}>Consultar FinanzIA</button>
         </div>
 
-        {/*desplazamiento de de reporte  */}
+        {/* Desplazamiento de reporte  */}
         {mostrarListaReportes && (
           <div className="seccion-reportes-rangos" style={{ marginTop: '20px', padding: '15px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#fafafa' }}>
             <h3 style={{ marginTop: 0, marginBottom: '15px' }}>Selecciona el Rango para tu Reporte</h3>
