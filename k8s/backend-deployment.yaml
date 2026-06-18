@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-financia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-financia
+  template:
+    metadata:
+      labels:
+        app: backend-financia
+    spec:
+      containers:
+      - name: backend-financia
+        image: financiacompleto-backend:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3001

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
-// IMPORT COMENTADO TEMPORALMENTE
-// import ReCAPTCHA from 'react-google-recaptcha';
+//IMPORT COMENTADO TEMPORALMENTE
+ import ReCAPTCHA from 'react-google-recaptcha';
 
 function Login() {
   const navigate = useNavigate();
@@ -11,14 +11,14 @@ function Login() {
   const [password, setPassword] = useState('');
   
   // ESTADO COMENTADO TEMPORALMENTE
-  // const [captcha, setCaptcha] = useState<string | null>(null);
+   const [captcha, setCaptcha] = useState<string | null>(null);
 
   const login = async () => {
     // VALIDACIÓN COMENTADA TEMPORALMENTE
-    // if (!captcha) {
-    //   alert('Complete el CAPTCHA');
-    //   return;
-    // }
+     if (!captcha) {
+       alert('Complete el CAPTCHA');
+       return;
+     }
 
     try {
       const response = await api.post('/auth/login', {
@@ -58,7 +58,7 @@ function Login() {
         />
 
         {/* COMPONENTE RECAPTCHA COMENTADO TEMPORALMENTE */}
-        {/* <div
+        { <div
           style={{
             marginTop: '15px',
             marginBottom: '15px',
@@ -71,7 +71,7 @@ function Login() {
             onChange={(value) => setCaptcha(value)}
           />
         </div> 
-        */}
+        }
 
         <button onClick={login}>
           Iniciar Sesión
